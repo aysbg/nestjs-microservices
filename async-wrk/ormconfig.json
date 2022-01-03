@@ -1,0 +1,10 @@
+{
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "kriptomat",
+  "password": "test",
+  "database": "test_db",
+  "entities": ["dist/**/*.entity{.ts,.js}"],
+  "synchronize": true
+}

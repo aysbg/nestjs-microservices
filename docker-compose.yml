@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    image: public.ecr.aws/lts/mysql
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    command: mysqld --sql_mode="" --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_USER: kriptomat
+      MYSQL_PASSWORD: test
+      MYSQL_DATABASE: test_db
+      MYSQL_ROOT_PASSWORD: cryptotest
+      MYSQL_PORT: 3306
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+    ports:
+      - '3306:3306'
+
+  rabbitmq:
+    image: 'enqueue/rabbitmq:3.7'
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  mongo:
+    image: mongo:3.7
+    ports:
+      - "27017:27017"
+
+volumes:
+  db_data: {}
